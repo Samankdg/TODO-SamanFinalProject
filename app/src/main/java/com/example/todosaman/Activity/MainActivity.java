@@ -15,10 +15,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.appcompat.widget.SearchView;
+
 import android.widget.Toast;
 
 import com.example.todosaman.R;
-import com.example.todosaman.Tables.TODO;
+import com.example.todosaman.Database.Tables.TODO;
 import com.example.todosaman.Adapter.TODOAdapter;
 import com.example.todosaman.ViewModel.TODOViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,9 +29,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-
     public static final int ADD_TASK_REQUEST = 1;
     public static final int EDIT_TASK_REQUEST = 2;
+    private TODOAdapter todoAdapter = new TODOAdapter() ;
 
     private com.example.todosaman.ViewModel.TODOViewModel TODOViewModel;
 
@@ -52,14 +54,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        final TODOAdapter adapter = new TODOAdapter();
-        recyclerView.setAdapter(adapter);
+//        final TODOAdapter adapter = new TODOAdapter();
+        recyclerView.setAdapter(todoAdapter);
 
         TODOViewModel = new ViewModelProvider(this).get(TODOViewModel.class);
         TODOViewModel.getAllTasks().observe(this, new Observer<List<TODO>>() {
             @Override
             public void onChanged(@Nullable List<TODO> todos) {
-                adapter.submitList(todos);
+                todoAdapter.setTODO(todos);
             }
         });
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
@@ -71,12 +73,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                TODOViewModel.delete(adapter.getNoteAt(viewHolder.getAdapterPosition()));
+                TODOViewModel.delete(todoAdapter.getTaskAt(viewHolder.getAdapterPosition()));
                 Toast.makeText(MainActivity.this, "TODO Deleted", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
 
-        adapter.setOnItemClickListener(new TODOAdapter.onItemClickListener() {
+        todoAdapter.setOnItemClickListener(new TODOAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(TODO TODO) {
                 Intent intent = new Intent(MainActivity.this, AddEditTaskActivity.class);
@@ -87,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(AddEditTaskActivity.EXTRA_TIME_BUTTON, TODO.getTime_button());
                 intent.putExtra(AddEditTaskActivity.EXTRA_PRIORITY, TODO.getPriority());
                 startActivityForResult(intent, EDIT_TASK_REQUEST);
-
             }
         });
     }
@@ -138,6 +139,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                todoAdapter.getFilter().filter(newText);
+                return true;
+            }
+        });
         return true;
     }
 
@@ -150,8 +165,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             default:
 
-            case R.id.logout:
-                startActivity(new Intent(MainActivity.this, ActivityLogin.class));
+//            case R.id.logout:
+//                startActivity(new Intent(MainActivity.this, ActivityLogin.class));
 
         }
         return super.onOptionsItemSelected(item);

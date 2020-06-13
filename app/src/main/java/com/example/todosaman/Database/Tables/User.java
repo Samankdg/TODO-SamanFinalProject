@@ -1,4 +1,4 @@
-package com.example.todosaman.Tables;
+package com.example.todosaman.Database.Tables;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;

@@ -9,9 +9,9 @@
     import androidx.room.RoomDatabase;
     import androidx.sqlite.db.SupportSQLiteDatabase;
 
-    import com.example.todosaman.Tables.TODO;
+    import com.example.todosaman.Database.Tables.TODO;
     import com.example.todosaman.Database.Dao.TODODao;
-    import com.example.todosaman.Tables.User;
+    import com.example.todosaman.Database.Tables.User;
     import com.example.todosaman.Database.Dao.UserDao;
 
     @Database(entities = {TODO.class, User.class} , version = 1, exportSchema = false)

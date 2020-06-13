@@ -1,4 +1,4 @@
-package com.example.todosaman.Tables;
+package com.example.todosaman.Database.Tables;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

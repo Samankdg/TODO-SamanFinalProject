@@ -6,8 +6,8 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.todosaman.Tables.User;
-import com.example.todosaman.Tables.UserTODO;
+import com.example.todosaman.Database.Tables.User;
+import com.example.todosaman.Database.Tables.UserTODO;
 
 
 @Dao

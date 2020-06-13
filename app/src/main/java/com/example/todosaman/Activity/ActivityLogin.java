@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.example.todosaman.Database.AppDatabase;
 import com.example.todosaman.R;
-import com.example.todosaman.Tables.User;
+import com.example.todosaman.Database.Tables.User;
 import com.example.todosaman.Database.Dao.UserDao;
 
 

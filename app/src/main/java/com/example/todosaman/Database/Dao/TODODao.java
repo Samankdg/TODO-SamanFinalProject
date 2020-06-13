@@ -7,7 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.todosaman.Tables.TODO;
+import com.example.todosaman.Database.Tables.TODO;
 
 import java.util.List;
 

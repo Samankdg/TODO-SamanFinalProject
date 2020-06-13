@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.todosaman.Tables.TODO;
+import com.example.todosaman.Database.Tables.TODO;
 import com.example.todosaman.Repository.TODORepository;
 
 import java.util.List;

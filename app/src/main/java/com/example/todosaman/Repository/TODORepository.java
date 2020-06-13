@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.todosaman.Database.Dao.TODODao;
 import com.example.todosaman.Database.AppDatabase;
-import com.example.todosaman.Tables.TODO;
+import com.example.todosaman.Database.Tables.TODO;
 
 import java.util.List;
 

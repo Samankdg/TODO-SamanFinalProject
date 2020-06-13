@@ -6,6 +6,12 @@
         android:title="Delete All TODOs"
         app:showAsAction="never"/>
     <item
+        android:id="@+id/action_search"
+        android:title="Search"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+    <item
         android:id="@+id/logout"
         android:title="Log Out"
         app:showAsAction="never"/>
