@@ -3,6 +3,8 @@ package com.example.todosaman.Activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -17,17 +19,21 @@ import android.view.View;
 
 import androidx.appcompat.widget.SearchView;
 
+import android.widget.GridLayout;
+import android.widget.Switch;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.todosaman.R;
 import com.example.todosaman.Database.Tables.TODO;
 import com.example.todosaman.Adapter.TODOAdapter;
 import com.example.todosaman.ViewModel.TODOViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final int ADD_TASK_REQUEST = 1;
     public static final int EDIT_TASK_REQUEST = 2;
@@ -35,10 +41,22 @@ public class MainActivity extends AppCompatActivity {
 
     private com.example.todosaman.ViewModel.TODOViewModel TODOViewModel;
 
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+
+
+        navigationView.bringToFront();
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_home);
 
 
         FloatingActionButton buttonAddNote = findViewById(R.id.button_add_note);
@@ -135,6 +153,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //for navigation
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -157,18 +185,33 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.delete_all_tasks:
+       return true;
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.nav_home:
+                break;
+
+            case R.id.nav_delete:
                 TODOViewModel.deleteAllTasks();
                 Toast.makeText(this, "All TODOs Deleted", Toast.LENGTH_SHORT).show();
                 return true;
+
+            case R.id.nav_logout:
+                Intent intent = new Intent(MainActivity.this, ActivityLogin.class);
+                startActivity(intent);
+                finish();
+                break;
+
+            case R.id.nav_exit:
+                finish();
             default:
-
-//            case R.id.logout:
-//                startActivity(new Intent(MainActivity.this, ActivityLogin.class));
-
         }
-        return super.onOptionsItemSelected(item);
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
 

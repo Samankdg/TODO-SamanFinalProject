@@ -117,18 +117,6 @@
             android:focusableInTouchMode="false"
             android:gravity="center"
             android:textIsSelectable="false" />
-
-<!--        <EditText-->
-<!--            android:id="@+id/tvtime"-->
-<!--            android:layout_width="100dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:layout_weight="2.5"-->
-<!--            android:hint="Time"-->
-<!--            android:focusable="false"-->
-<!--            android:focusableInTouchMode="false"-->
-<!--            android:gravity="center"-->
-<!--            android:layout_toRightOf="@+id/tvDate"-->
-<!--            android:textIsSelectable="false" />-->
     </LinearLayout>
 
     </LinearLayout>
