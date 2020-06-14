@@ -9,7 +9,11 @@ public class UserTODO {
     @Embedded
     User user;
 
-    @Relation(parentColumn = "id", entityColumn = "id", entity = TODO.class)
+    @Relation(
+            parentColumn = "id",
+            entityColumn = "id",
+            entity = TODO.class)
+
     public List<TODO> userTODO;
 
     public User getUser() {

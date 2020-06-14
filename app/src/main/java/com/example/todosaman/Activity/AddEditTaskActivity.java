@@ -11,6 +11,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,9 +33,6 @@ import com.example.todosaman.R;
 
 import java.text.SimpleDateFormat ;
 import java.util.Date ;
-import java.util.Locale ;
-
-
 
 public class AddEditTaskActivity extends AppCompatActivity {
 
@@ -54,20 +52,18 @@ public class AddEditTaskActivity extends AppCompatActivity {
 
     public static final String NOTIFICATION_CHANNEL_ID = "10001";
     private final static String default_notification_channel_id = "default";
-    EditText tvDate;
-    final Calendar myCalendar = Calendar.getInstance();
 
+    EditText tvDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_task);
-        tvDate = findViewById(R.id.tvDate);
-//        chooseTime = findViewById(R.id.tvtime);
-
-
         dateButton = findViewById(R.id.dateButton);
         timeButton = findViewById(R.id.timeButton);
+
+        tvDate = findViewById(R.id.tvDate);
+        tvDate.setInputType(InputType.TYPE_NULL);
 
         aSwitch =(Switch) findViewById(R.id.toDoHasDateSwitchCompat);
         tvDate.setVisibility(View.INVISIBLE);
@@ -97,6 +93,14 @@ public class AddEditTaskActivity extends AppCompatActivity {
                 handleTimeButton();
             }
         });
+
+        tvDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDateTimeDialog();
+            }
+        });
+
 
         editTextTitle = findViewById(R.id.edit_text_title);
         editTextDescription = findViewById(R.id.edit_text_description);
@@ -189,9 +193,10 @@ public class AddEditTaskActivity extends AppCompatActivity {
                 dateButton.setText(dateCharSequence);
             }
         }, YEAR, MONTH, DATE);
-
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
         datePickerDialog.show();
     }
+
     private void handleTimeButton() {
         Calendar calendar = Calendar.getInstance();
         int HOUR = calendar.get(Calendar.HOUR_OF_DAY);
@@ -226,7 +231,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
 
     private Notification getNotification(String content) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, default_notification_channel_id);
-        builder.setContentTitle("Scheduled Notification");
+        builder.setContentTitle("Check Your TODO");
         builder.setContentText(content);
         builder.setSmallIcon(R.drawable.ic_launcher_foreground);
         builder.setAutoCancel(true);
@@ -234,30 +239,33 @@ public class AddEditTaskActivity extends AppCompatActivity {
         return builder.build();
     }
 
-    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            myCalendar.set(Calendar.YEAR, year);
-            myCalendar.set(Calendar.MONTH, monthOfYear);
-            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            updateLabel();
-        }
-    };
 
-    public void setDate(View view) {
-        new DatePickerDialog(
-                AddEditTaskActivity.this, date,
-                myCalendar.get(Calendar.YEAR),
-                myCalendar.get(Calendar.MONTH),
-                myCalendar.get(Calendar.DAY_OF_MONTH)
-        ).show();
-    }
+    private void showDateTimeDialog() {
+        final Calendar calendar = Calendar.getInstance();
+        final DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, final int dayOfMonth) {
+                calendar.set(Calendar.YEAR,year);
+                calendar.set(Calendar.MONTH,month);
+                calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
 
-    private void updateLabel() {
-        String myFormat = "dd/MM/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
-        Date date = myCalendar.getTime();
-        tvDate.setText(sdf.format(date));
-        scheduleNotification(getNotification(tvDate.getText().toString()), date.getTime());
+                TimePickerDialog.OnTimeSetListener timeSetListener=new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
+                        calendar.set(Calendar.MINUTE,minute);
+                        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("EEEE, dd MMM yyyy" +" "+ "hh:mm"+" "+"a");
+                        Date date = calendar.getTime();
+                        tvDate.setText(simpleDateFormat.format(date));
+                        scheduleNotification(getNotification(tvDate.getText().toString()), date.getTime());
+                    }
+                };
+
+                new TimePickerDialog(AddEditTaskActivity.this,timeSetListener,calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),false).show();
+            }
+        };
+        DatePickerDialog datePickerDialog = new DatePickerDialog(AddEditTaskActivity.this,dateSetListener,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+        datePickerDialog.show();
     }
 }
