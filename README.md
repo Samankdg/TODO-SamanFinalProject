@@ -5,7 +5,7 @@
 # Features
 
 <p align = "center">
-<pre><b>SplashScreen</b>                  <b>SignUp</b>                 <b>SignIn</b>                   <b>AddTask</b></pre>
+<pre><b>SplashScreen</b>                     <b>SignUp</b>                    <b>SignIn</b>                    <b>AddTask</b></pre>
 <p align="center">
   <img src = "gif/splashscreen.gif" width="200" height="360">
   <img src = "gif/signup.gif" width="200" height="360">
