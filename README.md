@@ -16,6 +16,5 @@
   <img src = "gif/deletealltasks.gif" width="200" height="360">
   <img src = "gif/logout.gif" width="200" height="360">
   <img src = "gif/exit.gif" width="200" height="360">
-  <img src = "gif/android_components.png" width="200" height="360">
  </p>
 
