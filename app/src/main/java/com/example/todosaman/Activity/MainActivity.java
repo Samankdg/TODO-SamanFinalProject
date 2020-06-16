@@ -19,10 +19,7 @@ import android.view.View;
 
 import androidx.appcompat.widget.SearchView;
 
-import android.widget.GridLayout;
-import android.widget.Switch;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.example.todosaman.R;
 import com.example.todosaman.Database.Tables.TODO;
@@ -37,30 +34,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public static final int ADD_TASK_REQUEST = 1;
     public static final int EDIT_TASK_REQUEST = 2;
-    private TODOAdapter todoAdapter = new TODOAdapter() ;
+    private TODOAdapter todoAdapter = new TODOAdapter();
 
     private com.example.todosaman.ViewModel.TODOViewModel TODOViewModel;
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        //navigation menu
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
-
-
         navigationView.bringToFront();
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
 
 
-        FloatingActionButton buttonAddNote = findViewById(R.id.button_add_note);
-        buttonAddNote.setOnClickListener(new View.OnClickListener() {
+        //add task
+        FloatingActionButton buttonAddTask = findViewById(R.id.button_add_note);
+        buttonAddTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AddEditTaskActivity.class);
@@ -75,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        final TODOAdapter adapter = new TODOAdapter();
         recyclerView.setAdapter(todoAdapter);
 
+        //TODO View Model
         TODOViewModel = new ViewModelProvider(this).get(TODOViewModel.class);
         TODOViewModel.getAllTasks().observe(this, new Observer<List<TODO>>() {
             @Override
@@ -82,6 +80,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 todoAdapter.setTODO(todos);
             }
         });
+
+        //Swipe Features to delete Task
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    //for navigation
+    //remove navigation bar on back pressed
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
@@ -166,6 +166,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        //for Search Bar
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -188,11 +190,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
        return true;
     }
 
-
+    //listener for navigation menu click
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent);
+                break;
+
+            case R.id.nav_calendar:
+                Intent intent1 = new Intent(MainActivity.this, CalendarActivity.class);
+                startActivity(intent1);
                 break;
 
             case R.id.nav_delete:
@@ -201,8 +210,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
 
             case R.id.nav_logout:
-                Intent intent = new Intent(MainActivity.this, ActivityLogin.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(MainActivity.this, ActivityLogin.class);
+                startActivity(intent2);
                 finish();
                 break;
 

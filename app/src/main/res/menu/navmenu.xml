@@ -5,6 +5,11 @@
             android:id="@+id/nav_home"
             android:title="Home"
             android:icon="@drawable/ic_home"/>
+
+        <item
+            android:id="@+id/nav_calendar"
+            android:title="Calendar"
+            android:icon="@drawable/ic_date"/>
         <item
             android:id="@+id/nav_delete"
             android:title="Delete All Tasks"
