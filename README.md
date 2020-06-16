@@ -5,9 +5,9 @@
 # Features
 
 <p align="center">
-   #signin
-  <img src = "gif/signin.gif" width="200" height="360">
+   ##signin
   <img src = "gif/signup.gif" width="200" height="360">
+  <img src = "gif/signin.gif" width="200" height="360">
   <img src = "gif/addtask.gif" width="200" height="360">
   <img src = "gif/edittask.gif" width="200" height="360">
   <img src = "gif/search.gif" width="200" height="360">
