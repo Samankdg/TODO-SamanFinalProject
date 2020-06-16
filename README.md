@@ -2,8 +2,14 @@
 
 **Android Studio Version 3.6.0**
 
-# Features
+# To Do List
 
+This app uses the Android Architecture Component libraries (`Room`, `ViewModel`, `LiveData` and `LifeCycle`), 
+a RecyclerView and Java. The data will be stored in an SQLite database and supports insert, read, update and delete 
+operations.Together, this whole structure constitues an `MVVM (Model-View-ViewModel)` architecture, which follows 
+the single responsibility and separation of concerns principles.
+
+# Features
 
 <table>
 <thead>
@@ -60,13 +66,6 @@
 </tbody>
 </table>
 
-# To Do List
-
-This app uses the Android Architecture Component libraries (`Room`, `ViewModel`, `LiveData` and `LifeCycle`), 
-a RecyclerView and Java. The data will be stored in an SQLite database and supports insert, read, update and delete 
-operations.Together, this whole structure constitues an `MVVM (Model-View-ViewModel)` architecture, which follows 
-the single responsibility and separation of concerns principles.
-
 ## Why Android Architecture Component ?
 Android architecture components are a collection of libraries that help you design robust, testable, and maintainable apps. Start with classes for managing your UI component lifecycle and handling data persistence.
 
@@ -77,7 +76,7 @@ Android architecture components are a collection of libraries that help you desi
 
 ## How Android Architecture Components work?
 
-<img src = "gif/android_components.png">
+<img src ="gif/android_components.png">
 
 **Entity**: When working with Architecture Components, this is an annotated class that describes a database table.
 
