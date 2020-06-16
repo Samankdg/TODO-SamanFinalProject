@@ -11,5 +11,6 @@
   <img src = "gif/edittask" width="200" height="360">
   <img src = "gif/search" width="200" height="360">
   <img src = "gif/swipedelete" width="200" height="360">
+  <img src = "gif/android_components.png" width="200" height="360">
  </p>
 
