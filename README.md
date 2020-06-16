@@ -43,7 +43,7 @@
 </tbody>
 </table>
 
-<table>
+<table align="center">
 <thead>
 <tr>
 <th align="center">Delete All Task</th>
