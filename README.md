@@ -22,10 +22,10 @@ the single responsibility and separation of concerns principles.
 </thead>
 <tbody>
 <tr>
-<td align="center"> <img src = "gif/splashscreen.gif" width="200" height="360"></td>
-<td align="center"><img src = "gif/signup.gif" width="200" height="360"></td>
-<td align="center"> <img src = "gif/signin.gif" width="200" height="360"></td>
-<td align="left"><img src = "gif/addtask.gif" width="200" height="360"></td>
+<td align="center"> <img src = "https://github.com/Samankdg/TODO-SamanFinalProject/blob/master/gif/splashscreen.gif" width="200" height="360"></td>
+<td align="center"><img src = "https://github.com/Samankdg/TODO-SamanFinalProject/blob/master/gif/signup.gif" width="200" height="360"></td>
+<td align="center"> <img src = "https://github.com/Samankdg/TODO-SamanFinalProject/blob/master/gif/signin.gif" width="200" height="360"></td>
+<td align="left"><img src = "https://github.com/Samankdg/TODO-SamanFinalProject/blob/master/gif/addtask.gif" width="200" height="360"></td>
 </tr>
 </tbody>
 </table>
@@ -41,7 +41,7 @@ the single responsibility and separation of concerns principles.
 </thead>
 <tbody>
 <tr>
-<td align="center"><img src = "gif/edittask.gif" width="200" height="360"></td>
+<td align="center"><img src = "https://github.com/Samankdg/TODO-SamanFinalProject/blob/master/gif/edittask.gif" width="200" height="360"></td>
 <td align="center"><img src = "gif/swipedelete.gif" width="200" height="360"></td>
 <td align="center"><img src = "gif/search.gif" width="200" height="360"></td>
 <td align="left"><img src = "gif/calendar.gif" width="200" height="360"></td>
